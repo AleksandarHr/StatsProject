@@ -7,11 +7,12 @@
 #    [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
 ### Functions for Gradient Descent
+###
 ###    costSVM (X, W, y, C, regularization)
 ###    
 
 # set proper working directory
-if (dir.exists (PATH <- "~/Documents/Grinnell College/2017-2018/Spring/MAT336/finalproject/")) {
+if (dir.exists (PATH <- "~/Documents/Grinnell College/2017-2018/Spring/MAT336/StatsProject/")) {
     setwd (PATH)
     source ("helpers.R")
     library (foreach)

@@ -6,3 +6,39 @@
 #locale:
 #    [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
+### Creating randomly generated data with 2 features of a binary
+###    classification. Data is distributed with equal density within
+###    (x_1^2 + x_2^2) = 1 for both classes.
+###    
+###    rcircle (n)
+
+if (dir.exists (PATH <- "~/Documents/Grinnell College/2017-2018/Spring/MAT336/StatsProject/")) {
+    setwd (PATH)
+    source ("helpers.R")
+    library (ggplot2)
+    
+} else {
+    stop ("Directory not found")
+}
+
+# Generate random data distributed sin
+rcircle <- function (n) {
+    rho <- sqrt (runif (n))
+    theta <- runif (n, 0, 2 * pi)
+    circle <- data.frame(x = rho * cos (theta),
+                         y = rho * sin (theta))
+    return (circle)
+}
+
+# Create data frame with n values
+#    two features distributed rsin
+#    randomly generated binary classification
+n <- 10000
+circle <- rcircle (n)
+simData <- data.frame (x1 = circle$x,
+                       x2 = circle$y,
+                       y  = factor (rbinom (10000, 1, 0.5)))
+
+# Plot to make sure graph is circular
+ggplot (data = simData, aes (x = x1, y = x2, color = y)) + 
+    geom_point ()
