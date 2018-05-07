@@ -15,16 +15,13 @@
 if (dir.exists (PATH <- "~/Documents/Grinnell College/2017-2018/Spring/MAT336/StatsProject/")) {
     setwd (PATH)
     source ("helpers.R")
-    library (foreach)
+    library (readr)
 } else {
     stop ("Directory not found")
 }
 
-# cost function J for gradient descent using hinge loss
-#    and regularization function
-costSVM <- function (X, W, y, C, 
-                     regularization = (function (weights) 0)) {
-    return (regularization (W) + C * sum (max (0, 1 - y * (X %*% W))))
-}
+simData <- read.csv("simulatedData.csv")
+X <- as.matrix(simData[,c(1,2)])
+y <- as.matrix(cbind(simData[,3]))
 
-# gradient function of J
+gradientDescent (X, y, c(5,5), 0.00001, 0.000001)

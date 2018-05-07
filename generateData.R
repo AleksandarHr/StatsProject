@@ -16,7 +16,6 @@ if (dir.exists (PATH <- "~/Documents/Grinnell College/2017-2018/Spring/MAT336/St
     setwd (PATH)
     source ("helpers.R")
     library (ggplot2)
-    
 } else {
     stop ("Directory not found")
 }
@@ -42,3 +41,7 @@ simData <- data.frame (x1 = circle$x,
 # Plot to make sure graph is circular
 ggplot (data = simData, aes (x = x1, y = x2, color = y)) + 
     geom_point ()
+
+# Save data
+write.table (simData, "simulatedData.csv", sep = ',', row.names = F)
+
