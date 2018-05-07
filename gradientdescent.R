@@ -24,4 +24,4 @@ simData <- read.csv("simulatedData.csv")
 X <- as.matrix(simData[,c(1,2)])
 y <- as.matrix(cbind(simData[,3]))
 
-gradientDescent (X, y, c(5,5), 0.00001, 0.000001)
+gradientDescent (X, y, c(5,5), 1e-4, 1e-4,epochSize = 10,epoch = 1000)

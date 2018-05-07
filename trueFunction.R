@@ -50,3 +50,12 @@ plotly(z = ~trueCost1) + add_surface()
 
 trueCost[bestparam,]
 summary(glm(y~x1+x2-1,data=simData,family=binomial()))
+
+
+
+
+
+ggplot (contourvals, aes(x = theta1, y = theta2, z = log10(Loss))) + 
+    geom_raster(aes(fill = Loss)) + 
+    #geom_contour(bins=10, color = "gray") + 
+    scale_fill_continuous(low = "white", high = "black")

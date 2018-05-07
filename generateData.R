@@ -20,15 +20,6 @@ if (dir.exists (PATH <- "~/Documents/Grinnell College/2017-2018/Spring/MAT336/St
     stop ("Directory not found")
 }
 
-# Generate random data distributed sin
-rcircle <- function (n) {
-    rho <- sqrt (runif (n))
-    theta <- runif (n, 0, 2 * pi)
-    circle <- data.frame(x = rho * cos (theta),
-                         y = rho * sin (theta))
-    return (circle)
-}
-
 # Create data frame with n values
 #    two features distributed rsin
 #    randomly generated binary classification
