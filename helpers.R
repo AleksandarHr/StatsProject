@@ -44,6 +44,7 @@ sigmoid <- function (X) {
 
 # cost function of logistic regression
 cost <- function (X, y, theta) {
+    #n <- nrow(X)
     hx <- sigmoid (X %*% theta)
     return (-1 * (sum (y * log (hx) + (1 - y) * log (1 - hx))))
 }
@@ -89,7 +90,7 @@ gradientDescent <- function (X, y, startingTheta, alpha, epsilon, epochSize = 10
         # update
         step <- grad (X, y, theta)
         theta <- theta - alpha * step
-        delta <- step
+        delta <- abs (step)
     }
     
     finalCost <- cost (X, y, theta)
@@ -106,3 +107,4 @@ gradientDescent <- function (X, y, startingTheta, alpha, epsilon, epochSize = 10
     cat (sprintf ("theta2 = %f\n", theta[2]))
     #return (theta)
 }
+

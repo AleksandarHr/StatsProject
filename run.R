@@ -46,20 +46,14 @@ for (i in 1:numData) {
     mod <- glm(y ~ x1 + x2 - 1, data = simData, family = binomial())
     thetaEst <- summary (mod)$coefficients[,1]
     
-    #generate contour data
-    cat (sprintf ("Generating contour data\n"))
-    starts <- thetaEst - abs (thetaEst * 0.5)
-    ends <- thetaEst + abs (thetaEst * 0.5)
-    inc <- (ends - starts) / 100
-    contourvals <- contourData (X, y, starts, ends, inc)
-    write.table (contourvals, paste0 ("contour/contour_", i, ".csv"), sep = ',', row.names = F)
-    
     #gradient descent
     cat (sprintf ("Running gradient descent\n"))
-    initialTheta1 <- runif (nruns, starts[1], ends[1])
-    initialTheta2 <- runif (nruns, starts[2], ends[2])
+    initialTheta1 <- runif (nruns, -1, 1)
+    initialTheta2 <- runif (nruns, -1, 1)
     PATH <- paste0 ("gradientdescent/data_", i)
-    dir.create (PATH)
+    if (!dir.exists (PATH)) {
+        dir.create (PATH)
+    }
     for (j in 1:nruns) {
         initialTheta <- c(initialTheta1[j], initialTheta2[j])
         gradientDescent(X, y, initialTheta, alpha, epsilon, epochSize = 10, epochs = 500,
@@ -67,3 +61,17 @@ for (i in 1:numData) {
     }
 }
 Sys.time() - startTime
+
+# #generate contour data
+# cat (sprintf ("Generating contour data\n"))
+# starts <- thetaEst - abs (thetaEst * 0.5)
+# ends <- thetaEst + abs (thetaEst * 0.5)
+# inc <- (ends - starts) / 100
+# contourvals <- contourData (X, y, starts, ends, inc)
+# write.table (contourvals, paste0 ("contour/contour_", i, ".csv"), sep = ',', row.names = F)
+# 
+# ggplot (contourvals, aes(x = theta1, y = theta2, z = log10(Loss))) + 
+#     geom_raster(aes(fill = Loss)) + 
+#     #geom_contour(bins=10, color = "gray") + 
+#     scale_fill_continuous(low = "white", high = "black")
+
