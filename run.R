@@ -20,7 +20,7 @@ if (dir.exists (PATH <- "~/Documents/Grinnell College/2017-2018/Spring/MAT336/St
     stop ("Directory not found")
 }
 
-numData <- 1 #number of simulations
+numData <- 10 #number of simulations
 n <- 10000 #number of data points
 nruns <- 30 #number of gradient descent runs
 epsilon = 1e-6 #gradient descent parameter
@@ -56,20 +56,21 @@ for (i in 1:numData) {
     }
     for (j in 1:nruns) {
         initialTheta <- c(initialTheta1[j], initialTheta2[j])
-        gradientDescent(X, y, initialTheta, alpha, epsilon, epochSize = 10, epochs = 500,
+        gradientDescent(X, y, initialTheta, alpha, epsilon, epochSize = 25, epochs = 500,
                         filename = paste0 (PATH, "/path_", j, ".csv"))
     }
+    
+    #generate contour data
+    cat (sprintf ("Generating contour data\n"))
+    seq1 <- seq (-1, 1, 0.01)
+    seq2 <- seq (-1, 1, 0.01)
+    contourvals <- contourPlotly (X, y, seq1, seq2)
+    write.table (contourvals, paste0 ("contour/contour_", i, ".csv"), sep = ',', row.names = F)
 }
 Sys.time() - startTime
 
-# #generate contour data
-# cat (sprintf ("Generating contour data\n"))
-# starts <- thetaEst - abs (thetaEst * 0.5)
-# ends <- thetaEst + abs (thetaEst * 0.5)
-# inc <- (ends - starts) / 100
-# contourvals <- contourData (X, y, starts, ends, inc)
-# write.table (contourvals, paste0 ("contour/contour_", i, ".csv"), sep = ',', row.names = F)
-# 
+
+
 # ggplot (contourvals, aes(x = theta1, y = theta2, z = log10(Loss))) + 
 #     geom_raster(aes(fill = Loss)) + 
 #     #geom_contour(bins=10, color = "gray") + 

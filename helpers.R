@@ -24,17 +24,25 @@ rcircle <- function (n) {
 }
 
 # get contour data set
-contourData <- function (X, y, starts, ends, inc) {
-    if (length (starts) != 2 || length (ends) != 2 || length (inc) != 2)
-        stop ("starts, ends, inc need length 2")
+contourData <- function (X, y, theta1Seq, theta2Seq) {
     
-    df <- foreach (theta1 = seq (starts[1], ends[1], inc[1]), .combine = 'rbind') %:%
-        foreach (theta2 = seq (starts[2], ends[2], inc[2]), .combine = 'rbind') %do%
-        c(theta1, theta2, cost (X, y, cbind (c(theta1, theta2))))
+    df <- foreach (theta1 = theta1Seq, .combine = 'rbind') %:%
+        foreach (theta2 = theta2Seq, .combine = 'rbind') %do% {
+            c(theta1, theta2, cost (X, y, cbind (c(theta1, theta2))))
+        }
+        
     colnames (df) <- c("theta1", "theta2", "Loss")
     df <- data.frame (df)
     
     return (df)
+}
+
+contourPlotly <- function (X, y, theta1Seq, theta2Seq) {
+    df <- foreach(theta1 = theta1Seq, .combine='rbind') %:%
+        foreach(theta2 = theta2Seq, .combine='c') %do% {
+            cost(X, y, cbind(c(theta1, theta2)))
+        }
+        
 }
 
 # sigmoid function
