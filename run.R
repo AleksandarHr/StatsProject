@@ -36,7 +36,7 @@ for (i in 1:numData) {
     circle <- rcircle (n)
     simData <- data.frame (x1 = circle$x,
                            x2 = circle$y,
-                           y  = factor (rbinom (10000, 1, 0.5)))
+                           y  = rbinom (n, 1, 0.5))
     X <- as.matrix(simData[,c(1,2)])
     y <- as.matrix(cbind(simData[,3]))
     write.table (simData, paste0 ("data/simData_", i, ".csv"), sep = ',', row.names = F)
@@ -45,6 +45,13 @@ for (i in 1:numData) {
     cat (sprintf ("Getting glm estimates\n"))
     mod <- glm(y ~ x1 + x2 - 1, data = simData, family = binomial())
     thetaEst <- summary (mod)$coefficients[,1]
+    
+    #generate contour data
+    cat (sprintf ("Generating contour data\n"))
+    seq1 <- seq (-1, 1, 0.01)
+    seq2 <- seq (-1, 1, 0.01)
+    contourvals <- contourData(X, y, seq1, seq2)
+    write.table (contourvals, paste0 ("contour/contour_", i, ".csv"), sep = ',', row.names = F)
     
     #gradient descent
     cat (sprintf ("Running gradient descent\n"))
@@ -60,12 +67,6 @@ for (i in 1:numData) {
                         filename = paste0 (PATH, "/path_", j, ".csv"))
     }
     
-    #generate contour data
-    cat (sprintf ("Generating contour data\n"))
-    seq1 <- seq (-1, 1, 0.01)
-    seq2 <- seq (-1, 1, 0.01)
-    contourvals <- contourPlotly (X, y, seq1, seq2)
-    write.table (contourvals, paste0 ("contour/contour_", i, ".csv"), sep = ',', row.names = F)
 }
 Sys.time() - startTime
 
@@ -75,4 +76,3 @@ Sys.time() - startTime
 #     geom_raster(aes(fill = Loss)) + 
 #     #geom_contour(bins=10, color = "gray") + 
 #     scale_fill_continuous(low = "white", high = "black")
-
