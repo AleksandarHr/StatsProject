@@ -20,7 +20,7 @@ if (dir.exists (PATH <- "~/Documents/Grinnell College/2017-2018/Spring/MAT336/St
     stop ("Directory not found")
 }
 
-j <- 3
+j <- 4
 contourvals <- read.csv(paste0 ("contour/contour_", j, ".csv"))
 g <- ggplot () + 
     geom_raster(data = contourvals, aes(x = theta1, y = theta2, fill = Loss)) + 

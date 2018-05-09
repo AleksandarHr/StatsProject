@@ -31,7 +31,12 @@ simData <- data.frame (x1 = circle$x,
 
 # Plot to make sure graph is circular
 ggplot (data = simData, aes (x = x1, y = x2, color = y)) + 
-    geom_point ()
+    geom_point () + 
+    labs(x = "Variable 1",
+         y = "Variable 2",
+         title = "Simulated Data",
+         color = "Class") + 
+    theme_bw()
 
 # Save data
 write.table (simData, "simulatedData.csv", sep = ',', row.names = F)

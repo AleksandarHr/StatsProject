@@ -39,8 +39,8 @@ for (i in 1:numData) {
         gdestimates <- read_csv (paste0 ("gradientdescent/data_", i, "/path_", j, ".csv"))
         gdresults[i,] <- c(mean (gdestimates$theta1), mean (gdestimates$theta2))
         gdvar[i,] <- c(var (gdestimates$theta1), var (gdestimates$theta2))
-        gddist[i,] <- c(mean (abs (gdestimates$theta1 - glmresults$theta1[i])), 
-                        mean (abs (gdestimates$theta2 - glmresults$theta2[i])))
+        gddist[i,] <- c(abs (gdresults$theta1 - glmresults$theta1[i]), 
+                        abs (gdresults$theta2 - glmresults$theta2[i]))
     }
 }
 
