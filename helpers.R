@@ -63,10 +63,11 @@ grad <- function (X, y, theta) {
     return(t(X) %*% (hx - y))
 }
 
-gradientDescent <- function (X, y, startingTheta, alpha, epsilon, epochSize = 100, epochs = 10,
-                             filename = NA) {
+# run gradient descent
+gradientDescent <- function (X, y, startingTheta, alpha, epsilon, 
+                             epochSize = 100, epochs = 10, filename = NA) {
     
-    if (length (startingTheta) != 2) 
+    if ((length (startingTheta) != 2) && (!is.na (filename))) 
         stop ("Please use 2 values for theta")
     
     delta <- rep (1 / epsilon, length (startingTheta))
@@ -86,7 +87,7 @@ gradientDescent <- function (X, y, startingTheta, alpha, epsilon, epochSize = 10
         
         if ((iterations %% epochSize) == 0) {
             curCost <- cost (X, y, theta)
-            cat (sprintf ("%d\t %d\t %f\t %f\t %f\n", epoch, iterations, theta[1], theta[2], curCost))
+            #cat (sprintf ("%d\t %d\t %f\t %f\t %f\n", epoch, iterations, theta[1], theta[2], curCost))
             epoch <- epoch + 1
             
             if (!is.na (filename)) {
@@ -111,8 +112,16 @@ gradientDescent <- function (X, y, startingTheta, alpha, epsilon, epochSize = 10
     cat (sprintf ("Total Iterations = %d\n", iterations))
     cat (sprintf ("Initial Loss = %f\n", initialCost))
     cat (sprintf ("Final Loss = %f\n", finalCost))
-    cat (sprintf ("theta1 = %f\n", theta[1]))
-    cat (sprintf ("theta2 = %f\n", theta[2]))
-    #return (theta)
+    #cat (sprintf ("theta1 = %f\n", theta[1]))
+    #cat (sprintf ("theta2 = %f\n", theta[2]))
+    return (theta)
 }
+
+# predict accuracy of logistic regression
+accuracy <- function (X, y, BGDmodel, cutoff = 0.5) {
+    predictions <- (sigmoid (X %*% BGDmodel) >= cutoff) * 1
+    comparison <- predictions == y
+    return (sum (comparison) / nrow (X))
+}
+
 

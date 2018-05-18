@@ -6,6 +6,8 @@
 #locale:
 #    [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
+### Generate the true cost function between -1 and 1
+
 if (dir.exists (PATH <- "~/Documents/Grinnell College/2017-2018/Spring/MAT336/StatsProject/")) {
     setwd (PATH)
     source ("helpers.R")

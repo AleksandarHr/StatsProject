@@ -6,10 +6,7 @@
 #locale:
 #    [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
-### Run simulations
-###   - run 10 simulated data sets
-###   - run gradient descent from 100 random initial thetas
-###   - get contour plots for each
+### Get plots from simulations
 
 if (dir.exists (PATH <- "~/Documents/Grinnell College/2017-2018/Spring/MAT336/StatsProject/")) {
     setwd (PATH)
