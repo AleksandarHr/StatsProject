@@ -39,7 +39,7 @@ glmTitanic <- glm (Survived ~ Pclass + Sex + Age + SibSp + Parch + Fare - 1,
 glmAcc <- sum (round (glmTitanic$fitted.values) == y) / nrow (y)
 
 #Batch Gradient Descent Logistic Regression
-set.seed (9000) #reproducibility
+set.seed (90) #reproducibility
 startingTheta <- runif (n = ncol (X), min = -1, max = 1)
 epsilon = 1e-5
 alpha = 1e-2
